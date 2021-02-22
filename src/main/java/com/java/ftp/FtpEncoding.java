@@ -15,7 +15,7 @@ public class FtpEncoding {
     public static void main(String[] args) throws IOException {
         FTPClient ftpClient = new FTPClient();
         ftpClient.connect("url.146.10", 21);
-        ftpClient.login("test", "Bocom_123");
+        ftpClient.login("test", "pass");
         int on = ftpClient.sendCommand("OPTS UTF-8", "ON");
         String encoding = "UTF-8";
         if (FTPReply.isPositiveCompletion(ftpClient.sendCommand("OPTS UTF-8", "ON"))) {

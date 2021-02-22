@@ -26,7 +26,7 @@ public class OracleTest {
 
     public static Connection getConn() throws SQLException, ClassNotFoundException {
         Class.forName("oracle.jdbc.OracleDriver");
-        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@url.146.14:1521:orcl", "test", "Bocom_123");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@url.146.14:1521:orcl", "test", "pass");
         return conn;
     }
 

@@ -14,7 +14,7 @@ public class JdbcPre {
         Class.forName("com.mysql.jdbc.Driver");
 //        String url = "jdbc:mysql://url:3306/enc_discard_Service?rewriteBatchedStatements=true";
 //        String user = "bocom";
-//        String password = "Bocom_123";
+//        String password = "pass";
         String url = "jdbc:mysql://localhost:3306/flink?rewriteBatchedStatements=true";
         String user = "root";
         String password = "123456";

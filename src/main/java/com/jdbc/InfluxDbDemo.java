@@ -18,12 +18,12 @@ import java.util.concurrent.TimeUnit;
 public class InfluxDbDemo {
 
     /**
-     * shell命令：influx -port '9087' -username 'root' -password 'Bocom_123'
+     * shell命令：influx -port '9087' -username 'root' -password 'pass'
      * 端口可查看/etc/influx/中的配置文件
      */
     private static String openurl = "http://url:9087";//连接地址
     private static String username = "root";//用户名
-    private static String password = "Bocom_123";//密码
+    private static String password = "pass";//密码
     private static String database = "PARAMTER_DB";//数据库
     private static String measurement = "tw_parameter_tb";//表名
 

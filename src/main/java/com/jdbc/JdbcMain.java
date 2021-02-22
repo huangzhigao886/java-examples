@@ -133,7 +133,7 @@ public class JdbcMain {
     public void insertData() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("insert into `test_2000W` values(");
         for (int i = 0; i < 61; i++) {
@@ -164,7 +164,7 @@ public class JdbcMain {
     public void insertData12() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url?rewriteBatchedStatements=true";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         PreparedStatement preparedStatement = conn.prepareStatement("insert into zhutiku_mysql.stu1112my(id,name,age)(select id,name,age from Hba.stu_my1112)");
         preparedStatement.execute();
     }
@@ -186,7 +186,7 @@ public class JdbcMain {
     public void insertPicture1() throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         FileInputStream fileInputStream = new FileInputStream(new File("D://11.jpg"));
         byte[] bytes = IoUtil.readBytes(fileInputStream);
         String sq1 = "insert into photo2 values(?)";
@@ -211,7 +211,7 @@ public class JdbcMain {
     public void readPic() throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String sql = "select XP from cas2edasa limit 1";
         ResultSet resultSet = conn.prepareStatement(sql).executeQuery();
         while (resultSet.next()) {
@@ -272,7 +272,7 @@ public class JdbcMain {
         String[] trainsCode = CommonUtils.generatorTrainsCode();
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String sql = "insert into hengyanrl values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         for (int i = 0; i < 100; i++) {
@@ -310,7 +310,7 @@ public class JdbcMain {
         String[] HOUSE = new String[]{"T1", "T2"};
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String sql = "insert into hk_light_info values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         for (int i = 0; i < 100; i++) {
@@ -372,7 +372,7 @@ public class JdbcMain {
 
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String sql = "insert into shsjyj_gzxj values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         for (int i = 0; i < 100; i++) {
@@ -466,7 +466,7 @@ public class JdbcMain {
     public void fetchTest() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String sql = "select * from test_2000W limit 100000";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         preparedStatement.setFetchSize(1000);
@@ -497,7 +497,7 @@ public class JdbcMain {
     public void testInsert() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String sql = "insert into test_2000W_copy (select * from test_2000W)";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         preparedStatement.execute();
@@ -570,7 +570,7 @@ public class JdbcMain {
     public void insertData1() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?serverTimezone=Asia/Shanghai&useUnicode=yes&characterEncoding=UTF-8&rewriteBatchedStatements=true";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("insert into `bigData` (id) values(?)");
 //        for (int i = 0; i < 4; i++) {
@@ -624,7 +624,7 @@ public class JdbcMain {
     public void insertFood() throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String[] names = new String[]{"张海洲", "成果"};
         String[] months = new String[]{"11月", "10月", "12月"};
         String sql = "insert into food_infos values (?,?,?,?,?,?,?,?)";
@@ -648,7 +648,7 @@ public class JdbcMain {
     public void insertMat() throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String[] names = new String[]{"张子怡", "陈晶晶"};
         String[] mats = new String[]{"钢管", "钢瓶", "水泥", "阀门"};
         String[] months = new String[]{"11月", "10月", "12月"};
@@ -675,7 +675,7 @@ public class JdbcMain {
     public void inserTraffic() throws ClassNotFoundException, SQLException, FileNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String[] names = new String[]{"张正国", "程海峰"};
         String[] froms = new String[]{"廊坊", "郑州"};
         String[] tos = new String[]{"郑州", "廊坊"};
@@ -711,7 +711,7 @@ public class JdbcMain {
         String[] exceptions = new String[]{"设备温度过高", "调测器出口压力过低", "燃气流量超过范围值", "设备异常", "温度感应器损坏"};
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String sql = "insert into deviceinfosa values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         for (int i = 0; i < 4000; i++) {
@@ -774,7 +774,7 @@ public class JdbcMain {
         String[] exceptions = new String[]{"设备温度过高", "调测器出口压力过低", "燃气流量超过范围值", "设备异常", "温度感应器损坏"};
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String sql = "insert into deviceinfosb values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         for (int i = 0; i < 4000; i++) {
@@ -837,7 +837,7 @@ public class JdbcMain {
         String[] exceptions = new String[]{"设备温度过高", "调测器出口压力过低", "燃气流量超过范围值", "设备异常", "温度感应器损坏"};
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://url:3306/enc_original_database?rewriteBatchedStatements=true&characterEncoding=UTF-8";
-        Connection conn = DriverManager.getConnection(url, "root", "Bocom_123");
+        Connection conn = DriverManager.getConnection(url, "root", "pass");
         String sql = "insert into deviceinfosc values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = conn.prepareStatement(sql);
         for (int i = 0; i < 4000; i++) {
