@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a03b70bd-ae95-41f9-8510-df4c665a91a1" name="Default Changelist" comment="" />
+    <list default="true" id="a03b70bd-ae95-41f9-8510-df4c665a91a1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,7 +46,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bigdata/hbase/HbaseDemo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="405">
               <caret line="27" column="91" selection-start-line="27" selection-start-column="91" selection-end-line="27" selection-end-column="91" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -69,8 +71,6 @@
               <caret line="46" column="35" selection-start-line="46" selection-start-column="35" selection-end-line="46" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5165#5166#0" expanded="true" />
-                <element signature="e#5241#5242#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -287,6 +287,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -299,7 +300,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -820,6 +820,7 @@
       <workItem from="1612323008857" duration="4654000" />
       <workItem from="1613963095985" duration="492000" />
       <workItem from="1613963623854" duration="265000" />
+      <workItem from="1613965397205" duration="34000" />
     </task>
     <servers />
   </component>
@@ -856,13 +857,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1272523000" />
+    <option name="totallyTimeSpent" value="1272557000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.22222222" visible="true" weight="0.34357315" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.22222222" visible="true" weight="0.34923202" />
       <window_info id="Structure" order="1" sideWeight="0.7777778" side_tool="true" weight="0.32174617" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -2184,7 +2184,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bigdata/hbase/HbaseDemo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="405">
           <caret line="27" column="91" selection-start-line="27" selection-start-column="91" selection-end-line="27" selection-end-column="91" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -2255,8 +2255,6 @@
           <caret line="46" column="35" selection-start-line="46" selection-start-column="35" selection-end-line="46" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5165#5166#0" expanded="true" />
-            <element signature="e#5241#5242#0" expanded="true" />
           </folding>
         </state>
       </provider>
