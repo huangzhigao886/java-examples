@@ -22,13 +22,13 @@ public class Datahub1 {
         String projectName= "ryantest";
         String topic="ryan";
         String subId = "1594014659080UBUBO";
-        byte[] bytes = Base64.getDecoder().decode("MWhncUtuYlVmOThPTVV3ZlNzdng3NVdHbVJnNkRo");
+        byte[] bytes = Base64.getDecoder().decode("pass");
         String key =  new String(bytes);
         DatahubClient datahubClient = DatahubClientBuilder.newBuilder()
                 .setDatahubConfig(
                         new DatahubConfig("https://dh-cn-hangzhou.aliyuncs.com",
                                 // 是否开启二进制传输，服务端2.12版本开始支持
-                                new AliyunAccount("LTAI4GAKxzi8iiTuAdW6Qjac", key), false))
+                                new AliyunAccount("key", key), false))
                 //专有云使用出错尝试将参数设置为           false
                 // HttpConfig可不设置，不设置时采用默认值
                 .setHttpConfig(new HttpConfig()

@@ -98,8 +98,8 @@ public class DataHubDemo {
     public static void main(String[] args) {
         // Endpoint以Region: 华东1为例，其他Region请按实际情况填写
         String endpoint = "https://dh-cn-hangzhou.aliyuncs.com";
-        String accessId = "LTAI4G45czpfxqLxzo6VHs8h";
-        String accessKey = "Hm4O1Mu2MK5wikrimQ9yRVaqfE8KCI";
+        String accessId = "accessId";
+        String accessKey = "accessKey";
         String projectName = "hzg_test";
         String topicName = "topic1";
         RecordSchema schema = new RecordSchema();

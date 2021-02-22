@@ -18,8 +18,8 @@ public class DatahubComsumer1 {
     public static void main(String[] args) throws InterruptedException {
         String shardId = "0";
         String endpoint = "http://dh-cn-hangzhou.aliyuncs.com";
-        String accessId = "LTAI4G45czpfxqLxzo6VHs8h";
-        String accessKey = "Hm4O1Mu2MK5wikrimQ9yRVaqfE8KCI";
+        String accessId = "accessId";
+        String accessKey = "accessKey";
         String projectName = "hzg_test";
         String topicName = "topic1";
         DatahubClient datahubClient = DatahubClientBuilder.newBuilder()

@@ -22,8 +22,8 @@ public class DatahubProducerDemo2 {
     public static void main(String[] args) {
 
         String endpoint = "https://dh-cn-hangzhou.aliyuncs.com";
-        String accessId = "LTAI4GAKxzi8iiTuAdW6Qjac";
-        String accessKey = "1hgqKnbUf98OMUwfSsvx75WGmRg6Dh";
+        String accessId = "accessId";
+        String accessKey = "accessKey";
         String projectName = "ryantest";
         String topicName = "ryan";
         DatahubClient datahubClient = DatahubClientBuilder.newBuilder()

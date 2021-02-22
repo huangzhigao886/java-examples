@@ -19,8 +19,8 @@ import java.util.List;
 public class DatahubDemo2 {
     public static void main(String[] args) {
         String endpoint = "https://dh-cn-hangzhou.aliyuncs.com";
-        String accessId = "LTAI4GAKxzi8iiTuAdW6Qjac";
-        String accessKey = "1hgqKnbUf98OMUwfSsvx75WGmRg6Dh";
+        String accessId = "accessId";
+        String accessKey = "accessKey";
         String projectName = "ryantest";
         String topic = "ryan";
         String subId = "15949668993925NCK3";
