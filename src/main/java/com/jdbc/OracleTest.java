@@ -26,14 +26,14 @@ public class OracleTest {
 
     public static Connection getConn() throws SQLException, ClassNotFoundException {
         Class.forName("oracle.jdbc.OracleDriver");
-        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@url.146.14:1521:orcl", "test", "pass");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@url:1521:orcl", "test", "pass");
         return conn;
     }
 
     @Test
     public void testPartition() throws ClassNotFoundException, SQLException {
         Class.forName("oracle.jdbc.OracleDriver");
-        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@//url.146.84:1521/orcl", "test", "123456");
+        Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@//url:1521/orcl", "test", "123456");
         ResultSet resultSet = conn.createStatement().executeQuery("select ID,XINGMING,ADDRESS,AGE,SCORE,IDCARD,PHONE,MAIL,POSTCODE,TIME1,TIMEEND from TEST.A_ZLTEST01");
 
 //        conn.createStatement().executeQuery("select * from \"TEST\".\"YEAR_PARTITION\" partition(SP3)");

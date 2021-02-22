@@ -5,7 +5,7 @@ import java.sql.*;
 public class PostPreSql {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
-        String url = "jdbc:postgresql://url.146.86:5432/zhy";
+        String url = "jdbc:postgresql://url:5432/zhy";
         String username = "postgres";
         String password = "postgres";
 

@@ -19,7 +19,7 @@ public class HttpDemo {
     public static void main(String[] args) throws IOException {
         CloseableHttpClient httpClient= HttpClients.createDefault();
         //2.创建post请求方式实例
-        HttpPost httpPost=new HttpPost("http://url.151.141:29606/rest/post");
+        HttpPost httpPost=new HttpPost("http://url:29606/rest/post");
 
         //2.1设置请求头 发送的是json数据格式
 //        httpPost.setHeader("Content-type", "application/json;charset=utf-8");

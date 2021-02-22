@@ -15,7 +15,7 @@ import org.bson.Document;
 public class MongoDb {
     public static void main(String[] args) {
 
-        MongoClientURI connStr = new MongoClientURI("mongodb://root:123456@url.146.87:25555");
+        MongoClientURI connStr = new MongoClientURI("mongodb://root:123456@url:25555");
         MongoClient mongoClient = new MongoClient(connStr);
         MongoDatabase mongoDatabase = mongoClient.getDatabase("test");
         MongoCollection<Document> documentMongoCollection = mongoDatabase.getCollection("test");

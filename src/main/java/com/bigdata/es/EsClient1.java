@@ -34,7 +34,7 @@ public class EsClient1 {
     public static void main(String[] args) throws IOException, InterruptedException {
         RestHighLevelClient client = new RestHighLevelClient(
                 RestClient.builder(
-                        new HttpHost("url.151.141", 9200, "http"))
+                        new HttpHost("url", 9200, "http"))
         );
         bulkProcess(client);
         client.close();

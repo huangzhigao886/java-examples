@@ -14,7 +14,7 @@ public class SqlServer {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         Class.forName(driverName);
-        String dbURL = "jdbc:sqlserver://url.146.10:1433;databaseName=test";
+        String dbURL = "jdbc:sqlserver://url:1433;databaseName=test";
         String userName = "test";
         String password = "123456";
         Connection conn = DriverManager.getConnection(dbURL, userName, password);
