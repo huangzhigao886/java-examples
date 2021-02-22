@@ -1,0 +1,49 @@
+{
+"name": "$headers.jobName",
+"jobType": "$headers.jobType",
+"checkPointInterval": $headers.checkPointInterval,
+"onErrorPolicy": "$headers.onErrorPolicy",
+"config": {
+"data.source.serial.storetype": "$configs.storeType",
+"data.source.serial": "$configs.sourceSerial",
+"write.hdfs.overwrite": "$configs.overwrite",
+"cache.type": "$configs.cacheType"
+},
+"componentMap": {
+#set($schemasFlag = "")
+#if($components.schemaList)
+    #set($schemaFlag="")
+    #foreach($schema in $components.schemaList)
+        $!schemaFlag
+    "$schema.id": {
+    "id": "$schema.id",
+    "className": "cn.encdata.cloud.dataengine.schema.Schema",
+    "configMethods": [
+        #set($fieldFlag = "")
+        #foreach($field in $schema.dataFieldList)
+            $!fieldFlag {
+        "name": "addField",
+        "args": [
+        "$field.fieldName",
+        "$field.dataType"
+            #if($field.precision!=0)
+            ,$field.precision
+            #end
+            #if($field.format)
+            ,"$field.format"
+            #end
+        ]
+        }
+            #set($fieldFlag = ",")
+        #end
+    ]
+        }
+        #set($schemaFlag=",")
+    #end
+    #set($schemasFlag=",")
+#end
+
+}
+
+
+}

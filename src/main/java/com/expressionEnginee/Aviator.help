@@ -1,0 +1,14 @@
+内部支持的内置函数：
+string.length()         获取字符串的长度，里面可传常量或者变量，常量用''表示。变量记得传入map
+string.substring()      截取字符串
+string.contains()       字串包含问题，可内置函数 如：string.contains(\"test\",string.substring('hello',1,2))
+求长度: count(list)
+求和: reduce(list,+,0), reduce函数接收三个参数,第一个是seq,第二个是聚合的函数,如+等,第三个是聚合的初始值
+过滤: filter(list,seq.gt(9)), 过滤出list中所有大于9的元素并返回集合; seq.gt函数用于生成一个谓词,表示大于某个值
+判断元素在不在集合里: include(list,10)
+排序: sort(list)
+遍历整个集合: map(list,println), map接受的第二个函数将作用于集合中的每个元素,这里简单地调用println打印每个元素
+
+
+预编译提升性能
+ AviatorEvaluator.compile(express);     //express为表达式，后续执行可以做到表达式复用的效果

@@ -1,0 +1,294 @@
+{
+"name": "$headers.jobName",
+"jobType": "$headers.jobType",
+"checkPointInterval": $headers.checkPointInterval,
+"onErrorPolicy": "$headers.onErrorPolicy",
+"config": {
+"data.source.serial.storetype": "$configs.storetype",
+"cache.prop.path": "$configs.propPath",
+"data.source.serial": "$configs.sourceSerial",
+"write.hdfs.overwrite": "$configs.overwrite",
+"cache.type": "$configs.cacheType"
+},
+"componentMap": {
+
+#set($flag = "")
+#if($Components)
+    #foreach($component in $Components)
+        $!flag
+    "$component.id": {
+    "id": "$component.id",
+    "className": "$component.className",
+        #if($component.configMethods)
+        "configMethods": [
+            #set($flagMethods = "")
+            #foreach($field in $component.configMethods)
+                $!flagMethods {
+            "name": "$field.name",
+            "args": [
+                #set($flagArgs = "")
+                #foreach($arg in $field.args)
+                    $!flagArgs
+                "$arg"
+                    #set($flagArgs = ",")
+                #end
+            ]
+            }
+                #set($flagMethods = ",")
+            #end
+        #elseif($component.constructorArgs)
+        "constructorArgs": [
+            #set($flagArgs = "")
+            #foreach($con in $component.constructorArgs)
+                $!flagArgs
+                #foreach($data in $con.entrySet())
+                    #if($data.key == "int")
+                        $data.value
+                    #elseif($data.key == "str")
+                    "$data.value"
+                    #elseif($data.key == "list")
+                    [
+                        #set($addrflag = "")
+                        #foreach($field in $data.value)
+                            $!addrflag "$field"
+                            #set($addrflag = ",")
+                        #end
+                    ]
+                    #elseif($data.key == "boolean")
+                        $data.value
+                    #elseif($data.key == "map")
+                    {
+                        #set($flagmap = "")
+                        #foreach($line in $data.value.entrySet())
+                            $!flagmap
+                        "${line.key}":"${line.value}"
+                            #set($flagmap = ",")
+                        #end
+                    }
+                    #end
+                    #set($flagArgs = ",")
+                #end
+            #end
+        ]
+        #end
+    }
+    #end
+,
+#end
+},
+"sourceMap": {
+#set($flag = "")
+#foreach($source in $sources)
+"$source.id": {
+"parallelism": $source.parallelism,
+"id": "$source.id",
+"className": "$source.className",
+"constructorArgs": [
+    #set($flagArgs = "")
+    #foreach($field in $source.constructorArgs)
+        $!flagArgs
+    "$field"
+        #set($flagArgs = ",")
+    #end
+],
+"configMethods": [
+    #set($flagMethods = "")
+    #foreach($field in $source.configMethods)
+        $!flagMethods {
+    "name": "$field.name",
+    "args": [
+
+        #if($field.name == "setPkFields")
+        [
+            #set($flagArgs = "")
+            #foreach($arg in $field.args.get(0))
+                $!flagArgs
+            "$arg"
+                #set($flagArgs = ",")
+            #end
+        ]
+        #else
+            #set($flagArgs = "")
+            #foreach($arg in $field.args)
+                $!flagArgs
+            "$arg"
+                #set($flagArgs = ",")
+            #end
+        #end
+    ]
+    }
+        #set($flagMethods = ",")
+    #end
+]
+}
+    #set($flag = ",")
+#end
+},
+"operatorMap": {
+#set($flag = "")
+#foreach($opertor in $operators)
+    $!flag
+"$opertor.id": {
+"parallelism": $opertor.parallelism,
+"id": "$opertor.id",
+"className": "$opertor.className",
+"constructorArgs": [
+    #if($opertor.constructorArgs)
+        #if($opertor.id=="MAP" || $opertor.id=="DISCARDMAP" ||$opertor.id=="AUDIT" ||$opertor.id=="NOSTRUCTMAP")
+        {
+            #foreach($field in $opertor.constructorArgs)
+                #set($flagArgs = "")
+                #foreach($data in $field.entrySet())
+                    $!flagArgs
+                "${data.key}":"${data.value}"
+                    #set($flagArgs = ",")
+                #end
+            #end
+        }
+        #elseif($opertor.id=="FILTER" || $opertor.id=="DISCARDFILTER" || $opertor.id==
+            "STRUCTUREFILEDATAPARSEFUNCTION" || $opertor.id == "NONSTRUCTUREFILEDATAPARSEFUNCTION")
+            #set($flagArgs = "")
+            #foreach($field in $opertor.constructorArgs)
+                $!flagArgs
+                #if($field == "true")
+                    $field
+                #else
+                "$field"
+                #end
+                #set($flagArgs = ",")
+            #end
+        #elseif($opertor.id=="ENCJSONPARSEFUNCTION" )
+        "$opertor.constructorArgs.get(0)" ,
+        {
+            #set($flagArgs = "")
+            #foreach($data in $opertor.constructorArgs.get(1).entrySet())
+                $!flagArgs
+            "${data.key}":"${data.value}"
+                #set($flagArgs = ",")
+            #end
+        },
+        true
+
+        ##                剩下SORT，UNIQWE的情况
+        #else
+            #set($flagArgs = "")
+        [
+            #foreach($field in $opertor.constructorArgs.get(0))
+                $!flagArgs
+            "$field"
+                #set($flagArgs = ",")
+            #end
+        ]
+        ##    在排序时会有DESCENDING
+            #if($opertor.constructorArgs.size()==2)
+            , "$!opertor.constructorArgs.get(1)"
+            #end
+
+        #end
+    #end
+
+]
+
+    #if($opertor.configMethods)
+    ,
+    "configMethods": [
+        #set($flagMethods = "")
+        #foreach($field in $opertor.configMethods)
+            $!flagMethods {
+        "name": "$field.name",
+        "args": [
+            #if($field.name == "setPkFields")
+                #set($flagArgs = "")
+                #foreach($arg in $field.args.get(0))
+                    $!flagArgs
+                "$arg"
+                    #set($flagArgs = ",")
+                #end
+            #else
+            "$field.args.get(0)"
+            #end
+        ]
+        }
+            #set($flagMethods = ",")
+        #end
+    ]
+    #end
+}
+    #set($flag = ",")
+#end
+},
+"sinkMap": {
+#set($flag = "")
+#foreach($sink in $sinks)
+    $!flag
+"$sink.id": {
+"parallelism": $sink.parallelism,
+"id": "$sink.id",
+"className": "$sink.className",
+"constructorArgs": [
+    #set($flagArgs = "")
+    #foreach($field in $sink.constructorArgs)
+        $!flagArgs
+    ##? 包含数字时不能有引号
+        #if($field == "1048576")
+            $field
+        #else
+        "$field"
+        #end
+        #set($flagArgs = ",")
+    #end
+]
+    #if($sink.configMethods)
+    ,
+    "configMethods": [
+        #set($flagMethods = "")
+        #foreach($field in $sink.configMethods)
+            $!flagMethods {
+        "name": "$field.name",
+        "args": [
+        ##            可能会存在在逗号外的情况
+            #if($field.name == "setPkFields")
+            [
+                #set($flagArgs = "")
+                #foreach($arg in $field.args.get(0))
+                    $!flagArgs
+                "$arg"
+                    #set($flagArgs = ",")
+                #end
+            ]
+            #elseif($field.name == "setWithSchema")
+            true
+            #else
+                #set($flagArgs = "")
+                #foreach($arg in $field.args)
+                    $!flagArgs
+                "$arg"
+                    #set($flagArgs = ",")
+                #end
+            #end
+        ]
+        }
+            #set($flagMethods = ",")
+        #end
+    ]
+    #end
+}
+    #set($flag = ",")
+#end
+},
+"streams": [
+#set($flag = "")
+#foreach($stream in $streams)
+    $!flag{
+"name":"$stream.name",
+"from":"$stream.from",
+"to":"$stream.to"
+    #if($stream.operation)
+    , "operation":"$stream.operation"
+    #end
+    #set($flag = ",")
+}
+#end
+
+]
+}

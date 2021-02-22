@@ -1,0 +1,250 @@
+{
+"name": "$taskinfo.jobName",
+"jobType": "$taskinfo.jobType",
+"onErrorPolicy": "SKIP",
+
+"componentMap": {
+##schema
+#if($taskinfo.schemaList)
+    #set($schemaflag = "")
+    #foreach($schema in $taskinfo.schemaList)
+        $!schemaflag
+    "$schema.id":{
+    "id":"$schema.id",
+    "className":"cn.encdata.cloud.dataengine.schema.Schema",
+    "configMethods":[
+        #set($fieldFlag="")
+        #foreach($field in $schema.dataFieldList)
+            $!fieldFlag{
+        "name":"addField",
+        "args":[
+        "$field.fieldName",
+        "$field.fieldType"
+        ]
+        }
+            #set($fieldFlag=",")
+        #end
+    ]
+    }
+        #set($schemaflag=",")
+    #end
+#end
+
+##jdbc的接入参数
+#if($taskinfo.jdbcSourceParamList)
+,
+    #set($sourceParamFlag = "")
+    #foreach($sourceParam in $taskinfo.jdbcSourceParamList)
+        $!sourceParamFlag
+    "$sourceParam.id":{
+    "id":"$sourceParam.id",
+    "className":"cn.encdata.cloud.dataengine.core.jdbc.JdbcSourceInputParam",
+    "constructorArgs":[
+        #set($parmaFlag="")
+        #foreach($param in $sourceParam.constructArgsList)
+            $!parmaFlag
+        "$param"
+            #set($parmaFlag=",")
+        #end
+    ]
+    }
+        #set($sourceParamFlag=",")
+    #end
+#end
+},
+
+"config": {
+"data.source.serial.storetype": "HDFS",
+"cache.prop.path": "/encdata/dataengine/propfile",
+"data.source.serial": "$sourceSerial",
+"write.hdfs.overwrite": "$hdfsOverwrite",
+"cache.type": "REDIS",
+"redisHosts":"$redisHosts"
+},
+
+"sourceMap":{
+
+##jdbc的接入源
+
+#set($sourceFlag="")
+#foreach($source in $taskinfo.sourceList)
+    $!sourceFlag
+"$source.id":{
+"parallelism": 1,
+"id":"$source.id",
+"className":"$source.className",
+"constructorArgs":[
+    #set($sourceInputFlag="")
+    #foreach($field in $source.constructArgsList)
+        $!sourceInputFlag
+    "$field"
+        #set($sourceInputFlag = ",")
+    #end
+]
+
+    #if($source.joinConstructMethodDef)
+    ,
+    "configMethods": [
+    {
+    "name": "setPkFields",
+    "args": [
+    [
+        #set($fieldMethods = "")
+        #foreach($pkField in $source.joinConstructMethodDef.pkFields)
+            $!fieldMethods
+        "$pkField"
+            #set($fieldMethods = ",")
+        #end
+    ]
+    ]
+    }
+    ,
+    {
+    "name": "setRegion",
+    "args": [
+    "$source.joinConstructMethodDef.region"
+    ]
+    },
+    {
+    "name": "setTableName",
+    "args": [
+    "$source.joinConstructMethodDef.tableName"
+    ]
+    }
+    ]
+    #end
+}
+    #set($sourceFlag=",")
+#end
+},
+
+##join的操作
+"operatorMap":{
+#set($joinFlag="")
+#foreach($join in $taskinfo.joinOperatorList)
+    $!joinFlag
+"$join.id":{
+"parallelism": 1,
+"id":"$join.id",
+"className":"cn.encdata.cloud.dataengine.core.operators.EncJoinFunction",
+"constuctorArgs":[
+    #set($joinConFlag = "")
+    #foreach($field in $join.constructArgsList)
+        $!joinConFlag
+    "$field"
+        #set($joinConFlag = ",")
+    #end
+]
+}
+    #set($joinFlag=",")
+#end
+,
+##map的operator
+"$map.id":{
+"parallelism": 1,
+"id":"$map.id",
+"className":"cn.encdata.cloud.dataengine.core.operators.EncMapFunction",
+"constuctorArgs":[
+#set($mapConFlag = "")
+{
+#foreach($data in $map.constructArgsMap.entrySet())
+    $!mapConFlag
+"$data.key":"$data.value"
+    #set($mapConFlag=",")
+#end
+},
+"configMethods":[
+{
+"name":"setOutputSchema",
+"args":[
+"ref:sinkSchema"
+]
+}
+},
+
+##sink
+"sinkMap":{
+
+#set($sinkFlag="")
+#foreach($sink in $taskinfo.sinkList)
+    $!sinkFlag
+"$sink.id":{
+"parallelism": 1,
+"id":"$sink.id",
+"className":"$sink.className",
+"constructorArgs":[
+    #set($sinkConFlag="")
+    #foreach($field in $sink.constructArgsList)
+        $!sinkConFlag
+    "$field"
+        #set($sinkConFlag = ",")
+    #end
+]
+    #if($sink.joinConstructMethodDef)
+    ,
+    "configMethods": [
+    {
+    "name": "setPkFields",
+    "args": [
+    [
+        #set($fieldMethods = "")
+        #foreach($pkField in $sink.joinConstructMethodDef.pkFields)
+            $!fieldMethods
+        "$pkField"
+            #set($fieldMethods = ",")
+        #end
+    ]
+    ]
+    }
+    ,
+    {
+    "name": "setRegion",
+    "args": [
+    "$sink.joinConstructMethodDef.region"
+    ]
+    },
+    {
+    "name": "setTableName",
+    "args": [
+    "$sink.joinConstructMethodDef.tableName"
+    ]
+    }
+    ]
+    #end
+
+}
+    #set($sinkFlag=",")
+#end
+},
+
+
+"streams":[
+#set($streamFlag="")
+#foreach($stream in $taskinfo.streamList)
+    $!streamFlag
+{
+"name":"$stream.name",
+"from":"$stream.from",
+"to":"$stream.to"
+    #if($stream.operation)
+    ,
+    "operation":"$stream.operation"
+    #end
+    #if($stream.joinSide)
+    ,
+    "joinSide":"$stream.joinSide"
+    #end
+    #if($stream.joinKeys)
+    ,
+    "joinKeys":"$stream.joinKeys"
+    #end
+    #if($stream.tableName)
+    ,
+    "tableName":"$stream.tableName"
+    #end
+}
+    #set($streamFlag=",")
+#end
+]
+
+}
