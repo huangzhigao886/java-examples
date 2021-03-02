@@ -1,5 +1,6 @@
 package com.bigdata.hdfs;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
@@ -7,7 +8,9 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.security.UserGroupInformation;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.Executors;
 
@@ -26,8 +29,13 @@ public class HdfsClient {
     public static void main(String[] args) throws IOException {
         FileSystem fs = null;
         Configuration conf = new Configuration();
-        conf.addResource("D://141krb/core-site.xml");
-        conf.addResource("D://141krb/hdfs-site.xml");
+        //直接调用addResource(文件)   会导致获取的是LocalFileSystem,可能是后续的文件覆盖导致
+//        conf.addResource("D://141krb/core-site.xml");
+//        conf.addResource("D://141krb/hdfs-site.xml");
+
+        //推荐写法
+        conf.addResource(getResource("D://141krb/core-site.xml"));
+        conf.addResource(getResource("D://141krb/hdfs-site.xml"));
         conf.set(CONF_AUTH_TO_LOCAL, CONF_AUTH_TO_LOCAL_RULE);
         String auth = conf.get("hadoop.security.authentication");
         if (AUTH_BY_KERBEROS.equals(auth)) {
@@ -61,6 +69,28 @@ public class HdfsClient {
             return url.getPath();
         }
         return filePath;
+    }
+
+    private static InputStream getResource(String resourceName) throws IOException {
+        File configFile = new File(resourceName);
+        if (configFile.exists()) {
+            return new FileInputStream(configFile);
+        }
+        InputStream in = null;
+        try {
+            in = HdfsClient.class.getClassLoader().getResourceAsStream(resourceName);
+        } catch (Exception e) {
+        }
+        if (null == in) {
+            String configDir = System.getenv("HADOOP_CONF_DIR");
+            if (StringUtils.isEmpty(configDir)) {
+                throw new IOException("Can not load config file " + resourceName);
+            }
+            configFile = new File(configDir, resourceName);
+            return new FileInputStream(configFile);
+        }
+
+        return in;
     }
 }
 
